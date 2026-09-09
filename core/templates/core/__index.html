@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio</title>
+</head>
+<body>
+    <h1>Mi Portafolio</h1>
+
+    <!-- Sección CV -->
+    <section>
+        <h2>Curriculum Vitae</h2>
+        {% if ultimo_cv %}
+            <p>Última actualización: {{ ultimo_cv.fecha_subida|date:"d/m/Y" }}</p>
+            <a href="{{ ultimo_cv.archivo.url }}" target="_blank">Descargar CV (PDF)</a>
+        {% else %}
+            <p>No hay un CV cargado aún.</p>
+        {% endif %}
+    </section>
+
+    <!-- Sección Experiencia -->
+    <section>
+        <h2>Experiencia Laboral</h2>
+        {% for exp in experiencias %}
+            <div>
+                <h3>{{ exp.puesto }} - {{ exp.empresa }}</h3>
+                <p><small>{{ exp.fecha_inicio }} a {% if exp.fecha_fin %}{{ exp.fecha_fin }}{% else %}Presente{% endif %}</small></p>
+                <p>{{ exp.descripcion }}</p>
+            </div>
+        {% empty %}
+            <p>No hay experiencias registradas.</p>
+        {% endfor %}
+    </section>
+
+    <!-- Sección Proyectos -->
+    <section>
+        <h2>Proyectos</h2>
+        {% for proyecto in proyectos %}
+            <div>
+                <h3>{{ proyecto.titulo }}</h3>
+                <p>{{ proyecto.descripcion }}</p>
+                {% if proyecto.imagen %}
+                    <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}" width="300">
+                {% endif %}
+                {% if proyecto.url_sitio %}<a href="{{ proyecto.url_sitio }}" target="_blank">Ver Sitio</a>{% endif %}
+                {% if proyecto.url_repo %}<a href="{{ proyecto.url_repo }}" target="_blank">Ver Código</a>{% endif %}
+            </div>
+        {% empty %}
+            <p>No hay proyectos cargados.</p>
+        {% endfor %}
+    </section>
+
+    <!-- Formulario de Contacto -->
+    <section>
+        <h2>Contacto</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: green;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Enviar mensaje</button>
+        </form>
+    </section>
+</body>
+</html>

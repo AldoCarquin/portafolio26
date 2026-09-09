@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block title %}Aldo Carquín — Ruido visual, código prolijo{% endblock %}
 
@@ -17,7 +16,7 @@
       <svg class="starburst" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <polygon points="100,0 112,72 180,40 128,92 200,100 128,108 180,160 112,128 100,200 88,128 20,160 72,108 0,100 72,92 20,40 88,72" fill="var(--yolk)" stroke="var(--ink)" stroke-width="2"/>
       </svg>
-      <p class="lede">Diseño la interfaz y después la construyo yo mismo, en Django. No entrego una maqueta bonita y desaparezco: la misma persona que define el sistema visual arma el backend que lo sostiene. Diseño Integral (UC) + HTML, CSS, JS, Bootstrap y Django.</p>
+      <p class="lede">Doy forma a experiencias digitales donde la intuición visual y la arquitectura de código operan en el mismo canal. Desde el sistema de interfaz hasta el despliegue técnico, construyo productos que responden con la misma dedicación con la que se ven. Diseño Integral (UC) + HTML, CSS, JS, Bootstrap y Django.</p>
       <div class="hero-actions">
         <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
         <a href="{% url 'contacto' %}" class="btn btn-ghost">Hablemos de tu proyecto</a>
@@ -34,19 +33,22 @@
         <div class="deco deco-1 pop-in" style="--r:-9deg; animation-delay:.05s"></div>
         <div class="deco deco-2 pop-in" style="--r:4deg; animation-delay:.15s"></div>
         <div class="deco deco-3 pop-in" style="--r:0deg; animation-delay:.25s"></div>
-        <div class="id-card pop-in" style="--r:2.5deg; animation-delay:.3s">
+        <div class="id-card pop-in" style="--r:2.5deg; animation-delay:.3s" id="idCard">
           <div class="tape t1"></div>
           <div class="tape t2"></div>
-          <div class="id-photo">
-            <img src="{% static 'media/icon-head.png' %}" alt="Aldo Carquín" class="icon-head">
-            <div class="cap">// Aldo José González Carquín</div>
+          <span class="mono">// elige un modo</span>
+          <div class="mode-toggle">
+            <button class="active" data-mode="disenador">Diseñador</button>
+            <button data-mode="dev">Dev</button>
           </div>
-          <p class="id-bio"><b>Diseñador e ingeniero de una sola pieza.</b> UI/UX, branding y edición por un lado; HTML, CSS, JS, Bootstrap y Django por el otro — en el mismo proyecto, sin dividir el trabajo.</p>
-          <div class="chips">
-            <span class="chip">UI/UX</span>
-            <span class="chip">Branding</span>
-            <span class="chip">Django</span>
-            <span class="chip">Python</span>
+          <div class="mode-panel" id="modePanel">
+            <b>Diseño de interfaces y branding,</b> con obsesión por el detalle. UX, identidad visual y edición — formado en Diseño Integral, PENTA UC.
+            <div class="chips">
+              <span class="chip">UI/UX</span>
+              <span class="chip">Branding</span>
+              <span class="chip">Adobe CC</span>
+              <span class="chip">Motion</span>
+            </div>
           </div>
         </div>
       </div>

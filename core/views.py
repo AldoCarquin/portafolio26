@@ -25,3 +25,25 @@ def home(request):
     }
 
     return render(request, 'core/index.html', context)
+
+def curriculum(request):
+    ultimo_cv = DocumentoCV.objects.first()
+    context = {
+        'ultimo_cv': ultimo_cv,
+    }
+    return render(request, 'core/curriculum.html', context)
+
+def contacto(request):
+    if request.method == 'POST':
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.')
+            return redirect('contacto')
+    else:
+        form = ContactoForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'core/contacto.html', context)
