@@ -1,4 +1,5 @@
 from django.db import models
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Proyecto(models.Model):
     titulo = models.CharField(max_length=200)
@@ -19,7 +20,7 @@ class Experiencia(models.Model):
     empresa = models.CharField(max_length=150)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField(blank=True, null=True, help_text="Dejar en blanco si es trabajo actual")
-    descripcion = models.TextField()
+    descripcion = CKEditor5Field('Descripción', config_name='default')
     orden = models.PositiveIntegerField(default=0)
 
     class Meta:

@@ -35,7 +35,9 @@
           <span class="exp-date mono">{{ exp.fecha_inicio|date:"m/Y" }} — {% if exp.fecha_fin %}{{ exp.fecha_fin|date:"m/Y" }}{% else %}Presente{% endif %}</span>
           <h3>{{ exp.puesto }}</h3>
           <span class="exp-empresa">{{ exp.empresa }}</span>
-          <p>{{ exp.descripcion }}</p>
+          <div class="parrafo">
+          <p class="exp-descripcion">{{ exp.descripcion | safe}}</p>
+          </div>
         </div>
       {% empty %}
         <div class="empty-note mono">No hay experiencias registradas todavía.</div>

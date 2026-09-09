@@ -28,8 +28,10 @@ def home(request):
 
 def curriculum(request):
     ultimo_cv = DocumentoCV.objects.first()
+    experiencias = Experiencia.objects.all()
     context = {
         'ultimo_cv': ultimo_cv,
+        'experiencias': experiencias,
     }
     return render(request, 'core/curriculum.html', context)
 
