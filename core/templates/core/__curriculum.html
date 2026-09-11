@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Currículum — Aldo Carquín{% endblock %}
+
+{% block content %}
+
+  <section class="section" style="padding-top:56px;">
+    <div class="section-head">
+      <h2>Currículum</h2>
+      <p>Trayectoria y documento descargable, siempre actualizado.</p>
+    </div>
+
+    <div class="cv-box">
+      {% if ultimo_cv %}
+        <div>
+          <span class="mono" style="font-size:11px; color:var(--text-lo); display:block; margin-bottom:6px;">Última actualización</span>
+          <span style="font-weight:700; font-size:16px;">{{ ultimo_cv.fecha_subida|date:"d/m/Y" }}</span>
+        </div>
+        <a href="{{ ultimo_cv.archivo.url }}" target="_blank" class="btn btn-primary">Descargar CV (PDF)</a>
+      {% else %}
+        <p class="mono" style="color:var(--text-lo);">No hay un CV cargado aún.</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="section" id="experiencia">
+    <div class="section-head">
+      <h2>Experiencia laboral</h2>
+      <p>De la fundación al freelance — cada rol con su propio problema que resolver.</p>
+    </div>
+
+    <div class="timeline">
+      {% for exp in experiencias %}
+        <div class="exp-card">
+          <span class="exp-date mono">{{ exp.fecha_inicio|date:"m/Y" }} — {% if exp.fecha_fin %}{{ exp.fecha_fin|date:"m/Y" }}{% else %}Presente{% endif %}</span>
+          <h3>{{ exp.puesto }}</h3>
+          <span class="exp-empresa">{{ exp.empresa }}</span>
+          <div class="parrafo">
+          <p class="exp-descripcion">{{ exp.descripcion | safe}}</p>
+          </div>
+        </div>
+      {% empty %}
+        <div class="empty-note mono">No hay experiencias registradas todavía.</div>
+      {% endfor %}
+    </div>
+  </section>
+
+{% endblock %}

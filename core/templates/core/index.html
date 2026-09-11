@@ -62,39 +62,58 @@
   <svg class="wave-divider" viewBox="0 0 1180 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 11 Q 30 0 60 11 T 120 11 T 180 11 T 240 11 T 300 11 T 360 11 T 420 11 T 480 11 T 540 11 T 600 11 T 660 11 T 720 11 T 780 11 T 840 11 T 900 11 T 960 11 T 1020 11 T 1080 11 T 1140 11 T 1200 11" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" opacity=".18"/></svg>
 
   <section class="section" id="proyectos">
-    <div class="section-head">
-      <h2>Proyectos seleccionados</h2>
-      <p>Del boceto rayado a la implementación — cada uno con su propio lío que ordenar.</p>
-    </div>
-    <div class="bento">
-      {% for proyecto in proyectos %}
+  <div class="section-head">
+    <h2>Proyectos seleccionados</h2>
+    <p>Del boceto rayado a la implementación — cada uno con su propio lío que ordenar.</p>
+  </div>
+  
+  <div class="bento">
+    {% for proyecto in proyectos %}
+      <a href="{% url 'detalle_proyecto' proyecto.slug %}" class="card-link-wrapper">
         <div class="card {% if forloop.first %}card-lg{% elif forloop.counter == 2 %}card-md{% else %}card-sm{% endif %}">
           {% if forloop.first %}<span class="badge">Featured</span>{% endif %}
 
           {% if proyecto.imagen %}
-            <div class="card-media"><img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}"></div>
-          {% else %}
             <div class="card-media">
-              <svg viewBox="0 0 48 48" fill="none"><rect x="4" y="8" width="40" height="32" rx="6" stroke="var(--paper-2)" stroke-width="2.4" opacity=".9"/><circle cx="16" cy="18" r="3.4" stroke="var(--paper-2)" stroke-width="2.4" opacity=".9"/><path d="M6 34l11-11 8 8 6-6 11 11" stroke="var(--paper-2)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/></svg>
-              <span class="media-tag mono">+ imagen</span>
+              <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}">
+            </div>
+          {% else %}
+            <div class="card-media card-media--placeholder">
+              <i data-lucide="{{ proyecto.icono_lucide|default:'folder' }}"></i>
             </div>
           {% endif %}
 
-          <h3>{{ proyecto.titulo }}</h3>
-          <p>{{ proyecto.descripcion }}</p>
+          <div class="card-header-icon">
+            <i data-lucide="{{ proyecto.icono_lucide|default:'folder' }}"></i>
+            <h3>{{ proyecto.titulo }}</h3>
+          </div>
+
+          <p>{{ proyecto.descripcion_corta }}</p>
+
+          <!-- Listado de habilidades del proyecto -->
+          <div class="tag-row">
+            {% for h in proyecto.habilidades.all %}
+              <span class="tag-pill">{{ h.nombre }}</span>
+            {% endfor %}
+          </div>
 
           {% if proyecto.url_sitio or proyecto.url_repo %}
             <div class="card-links">
-              {% if proyecto.url_sitio %}<a href="{{ proyecto.url_sitio }}" target="_blank" class="card-link mono">Ver sitio ↗</a>{% endif %}
-              {% if proyecto.url_repo %}<a href="{{ proyecto.url_repo }}" target="_blank" class="card-link mono">Código ↗</a>{% endif %}
+              {% if proyecto.url_sitio %}
+                <span class="card-link mono">Ver sitio ↗</span>
+              {% endif %}
+              {% if proyecto.url_repo %}
+                <span class="card-link mono">Código ↗</span>
+              {% endif %}
             </div>
           {% endif %}
         </div>
-      {% empty %}
-        <div class="empty-note mono">Todavía no hay proyectos cargados. Vuelve pronto.</div>
-      {% endfor %}
-    </div>
-  </section>
+      </a>
+    {% empty %}
+      <div class="empty-note mono">Todavía no hay proyectos cargados. Vuelve pronto.</div>
+    {% endfor %}
+  </div>
+</section>
 
   <section class="section" id="sobre-mi">
     <div class="halftone corner-bl" style="--dot:var(--violet)"></div>

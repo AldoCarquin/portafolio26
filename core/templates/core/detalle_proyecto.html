@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ proyecto.titulo }} — Aldo Carquín{% endblock %}
+
+{% block extra_style %}
+<style>
+  main.wrap {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .proyecto-full-container {
+    width: 100%;
+    min-height: calc(100vh - 180px);
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="proyecto-full-container">
+  {% if proyecto.contenido_html %}
+    <div class="proyecto-detalle-body">
+      {% autoescape off %}
+        {{ proyecto.contenido_html }}
+      {% endautoescape %}
+    </div>
+  {% else %}
+    <section style="padding: 2rem; width: 100%;">
+      <h1>{{ proyecto.titulo }}</h1>
+      <p>{{ proyecto.descripcion_corta }}</p>
+    </section>
+  {% endif %}
+</div>
+{% endblock %}

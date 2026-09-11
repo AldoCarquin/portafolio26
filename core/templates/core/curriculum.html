@@ -10,16 +10,62 @@
       <p>Trayectoria y documento descargable, siempre actualizado.</p>
     </div>
 
-    <div class="cv-box">
-      {% if ultimo_cv %}
-        <div>
-          <span class="mono" style="font-size:11px; color:var(--text-lo); display:block; margin-bottom:6px;">Última actualización</span>
-          <span style="font-weight:700; font-size:16px;">{{ ultimo_cv.fecha_subida|date:"d/m/Y" }}</span>
-        </div>
-        <a href="{{ ultimo_cv.archivo.url }}" target="_blank" class="btn btn-primary">Descargar CV (PDF)</a>
-      {% else %}
-        <p class="mono" style="color:var(--text-lo);">No hay un CV cargado aún.</p>
-      {% endif %}
+    {% if ultimo_cv %}
+      <p class="mono cv-meta">Última actualización · <b>{{ ultimo_cv.fecha_subida|date:"d/m/Y" }}</b></p>
+    {% endif %}
+
+    <div class="cv-downloads">
+  <div class="cv-option">
+    <div class="cv-icon">
+      <svg viewBox="0 0 48 48" fill="none"><circle cx="18" cy="24" r="13" stroke="var(--paper-2)" stroke-width="2.4" opacity=".9"/><circle cx="30" cy="24" r="13" stroke="var(--paper-2)" stroke-width="2.4" opacity=".9"/></svg>
+    </div>
+    <h4>Versión principal</h4>
+    <span class="cv-option-tags">Diseño UX/UI · Web · Desarrollo</span>
+    {% if ultimo_cv %}
+      <a href="{{ ultimo_cv.archivo.url }}" target="_blank" class="btn btn-primary">Descargar CV PDF</a>
+    {% else %}
+      <span class="btn is-disabled">Próximamente</span>
+    {% endif %}
+  </div>
+ 
+  <div class="cv-option">
+    <div class="cv-icon">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M17 14L7 24l10 10M31 14l10 10-10 10M27 12l-6 24" stroke="var(--paper-2)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/></svg>
+    </div>
+    <h4>Versión Desarrollo</h4>
+    <span class="cv-option-tags">Web · Front-end · Fullstack</span>
+    {% if ultimo_cv_dev %}
+      <a href="{{ ultimo_cv_dev.archivo.url }}" target="_blank" class="btn btn-primary">Descargar CV Desarrollo</a>
+    {% else %}
+      <span class="btn is-disabled">Próximamente</span>
+    {% endif %}
+  </div>
+ 
+  <div class="cv-option">
+    <div class="cv-icon">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M8 34C14 20 24 12 40 10" stroke="var(--paper-2)" stroke-width="2.4" stroke-linecap="round" opacity=".9"/><circle cx="8" cy="34" r="3" fill="var(--paper-2)" opacity=".9"/><circle cx="40" cy="10" r="3" fill="var(--paper-2)" opacity=".9"/></svg>
+    </div>
+    <h4>Versión Diseño</h4>
+    <span class="cv-option-tags">UX/UI · Diseño Web · Diseño Integral</span>
+    {% if ultimo_cv_uxui %}
+      <a href="{{ ultimo_cv_uxui.archivo.url }}" target="_blank" class="btn btn-primary">Descargar CV Diseño</a>
+    {% else %}
+      <span class="btn is-disabled">Próximamente</span>
+    {% endif %}
+  </div>
+</div>
+
+    <div class="pro-summary">
+      <h3>Aldo González</h3>
+      <p>Diseñador Integral especializado en experiencias digitales, con experiencia en UX/UI, diseño web y desarrollo. Combino criterio visual con conocimientos técnicos para diseñar, implementar y mantener productos y plataformas digitales.</p>
+      <div class="tag-row">
+        <span class="tag-pill">UX/UI</span>
+        <span class="tag-pill">Web</span>
+        <span class="tag-pill">WordPress</span>
+        <span class="tag-pill">Front-end</span>
+        <span class="tag-pill">Python</span>
+        <span class="tag-pill">JavaScript</span>
+      </div>
     </div>
   </section>
 
@@ -42,6 +88,101 @@
       {% empty %}
         <div class="empty-note mono">No hay experiencias registradas todavía.</div>
       {% endfor %}
+    </div>
+  </section>
+
+  <section class="section" id="educacion">
+    <div class="section-head">
+      <h2>Educación</h2>
+      <p>La base — académica y técnica — sobre la que se construyó todo lo demás.</p>
+    </div>
+
+    <div class="timeline">
+      {% for f in formaciones %}
+        <div class="exp-card">
+          <span class="exp-date mono">{{ f.fecha_inicio|date:"m/Y" }} — {% if f.fecha_fin %}{{ f.fecha_fin|date:"m/Y" }}{% else %}Presente{% endif %}{% if f.ubicacion %} · {{ f.ubicacion }}{% endif %}</span>
+          <h3>{{ f.titulo }}</h3>
+          <span class="exp-empresa">{{ f.institucion }}</span>
+          {% if f.descripcion %}<p>{{ f.descripcion | safe }}</p>{% endif %}
+        </div>
+      {% empty %}
+        <div class="empty-note mono">No hay formación registrada todavía.</div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section" id="conocimientos">
+    <div class="section-head">
+      <h2>Conocimientos</h2>
+      <p>Ordenados por categoría.</p>
+    </div>
+
+<div class="skills-groups">
+  {% for grupo in habilidades_grupos %}
+    <div class="skills-group skills-group--{{ grupo.clave|slugify }}">
+      <div class="skills-icon">
+        {% if grupo.clave == 'Diseño' %}
+          <i data-lucide="palette"></i>
+          
+        {% elif grupo.clave == 'Desarrollo' %}
+          <i data-lucide="code-2"></i>
+          
+        {% elif grupo.clave == 'Otros' or grupo.clave == 'plataformas' %}
+          <i data-lucide="cpu"></i>
+          
+        {% else %}
+          <!-- Ícono por defecto para cualquier categoría nueva -->
+          <i data-lucide="sparkles"></i>
+        {% endif %}
+      </div>
+      
+      <h4 class="mono">{{ grupo.etiqueta }}</h4>
+      <div class="tag-row">
+        {% for h in grupo.items %}
+          <span class="tag-pill">{{ h.nombre }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  {% empty %}
+    <div class="empty-note mono">No hay conocimientos registrados todavía.</div>
+  {% endfor %}
+</div>
+  </section>
+
+  <section class="section" id="certificados">
+    <div class="section-head">
+      <h2>Certificados y reconocimientos</h2>
+    </div>
+
+<div class="cert-list">
+  {% for c in certificaciones %}
+    <div class="cert-item">
+      <span class="cert-year mono">{{ c.fecha_obtencion|date:"Y" }}</span>
+      <div>
+        <h4>{{ c.nombre }}</h4>
+        {% if c.institucion %}
+          <span class="cert-sub">{{ c.institucion }}</span>
+        {% endif %}
+        
+        {% if c.descripcion %}
+          <div class="cert-desc parrafo">
+            {{ c.descripcion|safe }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% empty %}
+    <div class="empty-note mono">No hay certificados registrados todavía.</div>
+  {% endfor %}
+</div>
+  </section>
+
+  <section class="section">
+    <div class="cta">
+      <div class="burst"></div>
+      <h2>¿Quieres hablar?</h2>
+      <p>Si estás buscando un perfil que pueda moverse entre diseño y tecnología, conversemos.</p>
+      <a href="{% url 'contacto' %}" class="btn btn-primary" style="position:relative; background:var(--yolk); color:var(--ink);">Hablemos</a>
     </div>
   </section>
 
