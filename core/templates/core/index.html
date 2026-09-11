@@ -9,7 +9,7 @@
     <div class="halftone corner-tr" style="--dot:var(--sky)"></div>
 
     <div style="position:relative; z-index:2;">
-      <span class="stamp eyebrow-tag"><span class="dot"></span>Disponible para proyectos nuevos</span>
+      <a href="{% url 'contacto' %}" class="stamp eyebrow-tag"><span class="dot"></span>Disponible para nuevos proyectos</a>
       <h1>
         <span class="l1">Lógica</span>
         <span class="l2">en alta frecuencia.<svg class="squiggle" viewBox="0 0 320 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 11 Q 20 -1 40 11 T 80 11 T 120 11 T 160 11 T 200 11 T 240 11 T 280 11 T 320 11" fill="none" stroke="var(--sky)" stroke-width="5" stroke-linecap="round"/></svg></span>
@@ -20,6 +20,7 @@
       <p class="lede">Diseño la interfaz y después la construyo yo mismo, en Django. No entrego una maqueta bonita y desaparezco: la misma persona que define el sistema visual arma el backend que lo sostiene. Diseño Integral (UC) + HTML, CSS, JS, Bootstrap y Django.</p>
       <div class="hero-actions">
         <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+        <a href="{% url 'curriculum' %}" class="btn btn-primary">Ver currículum</a>
         <a href="{% url 'contacto' %}" class="btn btn-ghost">Hablemos de tu proyecto</a>
       </div>
       <div class="social-row">
@@ -55,8 +56,8 @@
 
   <div class="marquee-wrap">
     <div class="marquee">
-      <span>DISEÑO</span><span class="acc">✷</span><span>ALDOALDOALDO</span><span class="acc2">✷</span><span>DJANGO</span><span class="acc">✷</span><span>RUIDO BONITO</span><span class="acc2">✷</span><span>PYTHON</span><span class="acc">✷</span><span>UI/UX</span><span class="acc2">✷</span>
-      <span>DISEÑO</span><span class="acc">✷</span><span>ALDOALDOALDO</span><span class="acc2">✷</span><span>DJANGO</span><span class="acc">✷</span><span>RUIDO BONITO</span><span class="acc2">✷</span><span>PYTHON</span><span class="acc">✷</span><span>UI/UX</span><span class="acc2">✷</span>
+      <span>DISEÑO</span><span class="acc">✷</span><span>ALDOALDOALDO</span><span class="acc2">✷</span><span>DJANGO</span><span class="acc">✷</span><span>DEVELOPMENT</span><span class="acc2">✷</span><span>PYTHON</span><span class="acc">✷</span><span>UI/UX</span><span class="acc2">✷</span>
+      <span>DISEÑO</span><span class="acc">✷</span><span>ALDOALDOALDO</span><span class="acc2">✷</span><span>DJANGO</span><span class="acc">✷</span><span>DEVELOPMENT</span><span class="acc2">✷</span><span>PYTHON</span><span class="acc">✷</span><span>UI/UX</span><span class="acc2">✷</span>
     </div>
   </div>
   <svg class="wave-divider" viewBox="0 0 1180 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 11 Q 30 0 60 11 T 120 11 T 180 11 T 240 11 T 300 11 T 360 11 T 420 11 T 480 11 T 540 11 T 600 11 T 660 11 T 720 11 T 780 11 T 840 11 T 900 11 T 960 11 T 1020 11 T 1080 11 T 1140 11 T 1200 11" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" opacity=".18"/></svg>
@@ -71,7 +72,6 @@
     {% for proyecto in proyectos %}
       <a href="{% url 'detalle_proyecto' proyecto.slug %}" class="card-link-wrapper">
         <div class="card {% if forloop.first %}card-lg{% elif forloop.counter == 2 %}card-md{% else %}card-sm{% endif %}">
-          {% if forloop.first %}<span class="badge">Featured</span>{% endif %}
 
           {% if proyecto.imagen %}
             <div class="card-media">
@@ -125,17 +125,17 @@
         </div>
         <span class="mono" style="font-size:11.5px; color:var(--text-lo);">// ficha</span>
         <div class="stat-row">
-          <div class="stat"><b>UI/UX</b><span>+ Branding</span></div>
-          <div class="stat"><b>Django</b><span>Full-stack</span></div>
+          <div class="stat"><b>UI/UX</b><span>Sistemas & Producto</span></div>
+          <div class="stat"><b>Django</b><span>Full-stack en producción</span></div>
           <div class="stat"><b>UC</b><span>Diseño Integral</span></div>
-          <div class="stat"><b>PENTA UC</b><span>Origen de todo esto</span></div>
+          <div class="stat"><b>Ejecución</b><span>De la idea al despliegue</span></div>
         </div>
       </div>
       <div>
-        <h2>Diseño integral, con formas que no piden permiso.</h2>
-        <p>Crecí en La Granja y pasé por el Cardenal José María Caro, de la Fundación Belén Educa. En el programa PENTA UC entendí que el diseño no era solo un gusto: era la forma en que resolvía todo lo demás.</p>
-        <p>Formado en Diseño Integral (UC), cruzo lo visual, lo interactivo y lo narrativo, pero no me quedo en la maqueta bonita: la llevo a un sitio real, con un backend que la sostiene.</p>
-        <p>Este mismo portafolio lo estoy reconstruyendo sobre Django, aplicando ese mismo cruce entre criterio raro-con-intención y arquitectura técnica prolija.</p>
+        <h2>Diseño con intención, sistemas que responden.</h2>
+        <p>Diseñar para mí nunca fue solo cómo se ven las cosas, sino cómo funcionan por dentro y qué impacto generan afuera. Crecí en La Granja, me formé como Diseñador Integral en la Universidad Católica y desde ahí convertí la curiosidad en un método de trabajo bastante claro: cruzar la estética con la resolución técnica sin rodeos.</p>
+        <p>No me conformo con entregar una maqueta o un prototipo en Figma. Me meto de lleno en el código, levanto arquitecturas sobre Django, estructuro bases de datos y resuelvo la experiencia de usuario de punta a punta. Si algo necesita ser diseñado, maquetado, editado o programado, encuentro la forma de construirlo.</p>
+        <p>Tengo esa mezcla entre sensibilidad gráfica, ojo crítico para el detalle y pragmatismo técnico. Este portafolio es exactamente eso: una muestra de cómo paso de la idea al producto real sin perder la solidez en el camino.</p>
         <a href="{% url 'curriculum' %}" class="btn btn-ghost">Ver currículum completo</a>
       </div>
     </div>
