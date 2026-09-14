@@ -307,7 +307,7 @@
     flex-shrink:0;
     overflow:hidden;
   }
-  .card-sm .card-media{height:82px;}
+  .card-sm .card-media{height:120px;}
   .card-media::before{
     content:''; position:absolute; inset:0; border-radius:inherit;
     background-image:radial-gradient(var(--paper-2) 1.5px, transparent 1.5px);
@@ -444,12 +444,17 @@
     background:var(--paper-2); border:3px solid var(--ink); border-radius:30px 12px 30px 12px;
     padding:26px 28px; box-shadow:7px 7px 0 var(--ink);
     margin-bottom:52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
   }
   .pro-summary h3{font-family:'Bungee',sans-serif; font-size:19px; font-weight:400; margin-bottom:10px;}
-  .pro-summary p{font-size:14px; color:var(--text-lo); max-width:64ch; margin-bottom:14px;}
+  .pro-summary p{font-size:14px; color:var(--text-lo); max-width:64ch; margin-bottom:14px; text-align: center;}
 
   /* reusable tag pill row, used in the ficha and in skills */
-  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px; justify-content: center;}
   .tag-pill{
     font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700;
     padding:6px 12px; border-radius:100px;

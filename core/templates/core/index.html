@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Aldo Carquín — Ruido visual, código prolijo{% endblock %}
+{% block title %}Aldo Carquín — Lógica en alta frecuencia{% endblock %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
     <div class="halftone corner-tr" style="--dot:var(--sky)"></div>
 
     <div style="position:relative; z-index:2;">
-      <a href="{% url 'contacto' %}" class="stamp eyebrow-tag"><span class="dot"></span>Disponible para nuevos proyectos</a>
+      <a href="{% url 'contacto' %}" class="stamp eyebrow-tag"><span class="dot"></span>Activando nuevos proyectos ✷ Disponible</a>
       <h1>
         <span class="l1">Lógica</span>
         <span class="l2">en alta frecuencia.<svg class="squiggle" viewBox="0 0 320 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 11 Q 20 -1 40 11 T 80 11 T 120 11 T 160 11 T 200 11 T 240 11 T 280 11 T 320 11" fill="none" stroke="var(--sky)" stroke-width="5" stroke-linecap="round"/></svg></span>
@@ -17,7 +17,7 @@
       <svg class="starburst" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <path d="M100,20 C120,18 128,40 148,42 C172,44 185,65 178,88 C172,110 190,125 178,148 C165,170 140,168 125,182 C108,197 85,192 68,178 C48,162 45,140 25,128 C8,118 12,92 28,78 C42,65 45,42 68,32 C80,26 90,22 100,20 Z" fill="var(--yolk)" stroke="var(--ink)" stroke-width="2"/>
       </svg>
-      <p class="lede">Diseño la interfaz y después la construyo yo mismo, en Django. No entrego una maqueta bonita y desaparezco: la misma persona que define el sistema visual arma el backend que lo sostiene. Diseño Integral (UC) + HTML, CSS, JS, Bootstrap y Django.</p>
+      <p class="lede">Creador integral. Fusiono branding, estrategia visual y desarrollo técnico en un solo flujo. Sin intermediarios: desde el concepto gráfico hasta las entrañas del servidor.</p>
       <div class="hero-actions">
         <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
         <a href="{% url 'curriculum' %}" class="btn btn-primary">Ver currículum</a>
@@ -42,7 +42,7 @@
             <img src="{% static 'media/icon-head.png' %}" alt="Aldo Carquín" class="icon-head">
             <div class="cap">// Aldo José González Carquín</div>
           </div>
-          <p class="id-bio"><b>Diseñador e ingeniero de una sola pieza.</b> UI/UX, branding y edición por un lado; HTML, CSS, JS, Bootstrap y Django por el otro — en el mismo proyecto, sin dividir el trabajo.</p>
+          <p class="id-bio"><b>Creador de una sola pieza. Fusiono branding, estrategia visual y código puro (Python/Java/PHP/+) en un solo flujo. Sin intermediarios, sin fracturas entre la idea y la máquina.</p>
           <div class="chips">
             <span class="chip">UI/UX</span>
             <span class="chip">Branding</span>
@@ -64,8 +64,8 @@
 
   <section class="section" id="proyectos">
   <div class="section-head">
-    <h2>Proyectos seleccionados</h2>
-    <p>Del boceto rayado a la implementación — cada uno con su propio lío que ordenar.</p>
+    <h2>Piezas en rotación</h2>
+    <p>Del concepto visual a la ejecución técnica: cuando el diseño y el código hablan el mismo idioma.</p>
   </div>
   
   <div class="bento">
@@ -133,9 +133,9 @@
       </div>
       <div>
         <h2>Diseño con intención, sistemas que responden.</h2>
-        <p>Diseñar para mí nunca fue solo cómo se ven las cosas, sino cómo funcionan por dentro y qué impacto generan afuera. Crecí en La Granja, me formé como Diseñador Integral en la Universidad Católica y desde ahí convertí la curiosidad en un método de trabajo bastante claro: cruzar la estética con la resolución técnica sin rodeos.</p>
-        <p>No me conformo con entregar una maqueta o un prototipo en Figma. Me meto de lleno en el código, levanto arquitecturas sobre Django, estructuro bases de datos y resuelvo la experiencia de usuario de punta a punta. Si algo necesita ser diseñado, maquetado, editado o programado, encuentro la forma de construirlo.</p>
-        <p>Tengo esa mezcla entre sensibilidad gráfica, ojo crítico para el detalle y pragmatismo técnico. Este portafolio es exactamente eso: una muestra de cómo paso de la idea al producto real sin perder la solidez en el camino.</p>
+        <p>Crecí en La Granja entendiendo que las soluciones reales se arman con lo que hay a mano y con ingenio propio. Me formé como Diseñador Integral en la Universidad Católica, expandiendo mi curiosidad natural hacia la ingeniería y el desarrollo de software.</p>
+        <p>No me limito a un solo lenguaje ni a una sola capa del proyecto. Levanto arquitecturas, modelo bases de datos y resuelvo la experiencia de usuario de punta a punta. Si una herramienta nueva es necesaria para que el sistema funcione, se aprende y se domina.</p>
+        <p>Este portafolio refleja exactamente eso: una muestra viva de cómo cruzo la sensibilidad gráfica y el pragmatismo técnico para construir productos que funcionan tan bien como se ven.</p>
         <a href="{% url 'curriculum' %}" class="btn btn-ghost">Ver currículum completo</a>
       </div>
     </div>
@@ -145,7 +145,7 @@
     <div class="cta">
       <div class="burst"></div>
       <h2>¿Tienes un proyecto en mente?</h2>
-      <p>Cuéntame qué necesitas — diseño, desarrollo, o ambos — y te respondo directo a tu correo.</p>
+      <p>Cuéntame qué quieres armar [desde la interfaz hasta el backend] y le damos forma de inmediato.</p>
       <a href="{% url 'contacto' %}" class="btn btn-primary" style="position:relative; background:var(--yolk); color:var(--ink);">¡Trabaja conmigo!</a>
     </div>
   </section>
