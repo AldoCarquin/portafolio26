@@ -98,7 +98,7 @@ def contacto(request):
     else:
         form = ContactoForm()
 
-    return render(request, 'contacto.html', {'form': form})
+    return render(request, 'core/contacto.html', {'form': form})
 
 def detalle_proyecto(request, slug):
     proyecto = get_object_or_404(Proyecto, slug=slug)
