@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'core',
     'cloudinary_storage',
-    'django.contrib.staticfiles',
     'cloudinary',
 ]
 
