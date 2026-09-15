@@ -24,7 +24,7 @@ ENVIRONMENT = os.environ.get('ENVIRONMENT', 'local')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-7ve3h+rq+ptn&%zr(1%!bz$4=qf1!22nv0hg0#rxk&#yd1wap*')
 
 # Solo será True si NO estamos en producción
-DEBUG = ENVIRONMENT != 'production'
+DEBUG = True
 
 # Permite que el sitio cargue en tu dominio y en el servidor cloud
 ALLOWED_HOSTS = ['aldoaldoaldo.com', 'www.aldoaldoaldo.com', 'localhost', '127.0.0.1', '.onrender.com', '.up.railway.app']
