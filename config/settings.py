@@ -24,7 +24,7 @@ ENVIRONMENT = os.environ.get('ENVIRONMENT', 'local')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-7ve3h+rq+ptn&%zr(1%!bz$4=qf1!22nv0hg0#rxk&#yd1wap*')
 
 # Solo será True si NO estamos en producción
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Permite que el sitio cargue en tu dominio y en el servidor cloud
 ALLOWED_HOSTS = ['aldoaldoaldo.com', 'www.aldoaldoaldo.com', 'localhost', '127.0.0.1', '.onrender.com', '.up.railway.app']
@@ -143,9 +143,9 @@ CKEDITOR_5_CONFIGS = {
 # CONFIGURACIÓN DE CORREOS
 # ==========================================
 if ENVIRONMENT == 'production':
-    # CONFIGURACIÓN REAL (SE ACTIVA EN LA NUBE)
+    # CONFIGURACIÓN REAL PARA GMAIL (O CAMBIA EL HOST SI ES OTRO PROVEEDOR)
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.ionos.com' # O el servidor SMTP que decidas usar
+    EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     EMAIL_HOST_USER = os.environ.get('EMAIL_USER') 
