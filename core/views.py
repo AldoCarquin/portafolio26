@@ -70,25 +70,28 @@ def contacto(request):
             return redirect('contacto')
 
         if form.is_valid():
+            # 1. Guardamos el mensaje en la base de datos (Garantía total de respaldo)
             mensaje_guardado = form.save()
             
             asunto_correo = f"Nuevo contacto: {mensaje_guardado.asunto}"
             cuerpo_correo = f"De: {mensaje_guardado.nombre} ({mensaje_guardado.email})\n\nMensaje:\n{mensaje_guardado.mensaje}"
             
             try:
+                # 2. Intentamos enviar el correo con fail_silently=True para que no rompa el worker si Render bloquea el puerto
                 send_mail(
                     subject=asunto_correo,
                     message=cuerpo_correo,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     recipient_list=['aldo.gonzalez.carquin@gmail.com'],
-                    fail_silently=False,
+                    fail_silently=True, 
                 )
-                messages.success(request, "¡Mensaje enviado! Lo revisaré pronto.")
-                return redirect('contacto')
             except Exception as e:
-                print(f"ERROR ENVIANDO CORREO: {e}")
-                messages.error(request, "El mensaje se guardó, pero hubo un problema enviando la notificación.")
-                return redirect('contacto')
+                print(f"Advertencia SMTP: {e}")
+
+            # 3. Independientemente de si el servidor SMTP de Google respondió al instante o hubo bloqueo, 
+            # el mensaje ya está seguro en la BD y el usuario ve su éxito sin sufrir timeouts de 500.
+            messages.success(request, "¡Mensaje enviado con éxito! Lo revisaré pronto.")
+            return redirect('contacto')
         else:
             messages.error(request, "Revisa los campos del formulario, hay un error.")
     else:
