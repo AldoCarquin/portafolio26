@@ -1,7 +1,9 @@
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Proyecto, Experiencia, DocumentoCV, CVDev, CVUXUI, Formacion, Habilidad, Certificacion
 from .forms import ContactoForm
+from django.conf import settings
 
 def home(request):
     proyectos = Proyecto.objects.all()
@@ -62,17 +64,41 @@ def curriculum(request):
 def contacto(request):
     if request.method == 'POST':
         form = ContactoForm(request.POST)
+        
         if form.is_valid():
-            form.save()
-            messages.success(request, '¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.')
-            return redirect('contacto')
+            # 1. Guardamos el mensaje en la base de datos de Django
+            mensaje_guardado = form.save()
+            
+            # 2. Preparamos y enviamos el correo a ti mismo
+            asunto_correo = f"Nuevo contacto: {mensaje_guardado.asunto}"
+            cuerpo_correo = f"De: {mensaje_guardado.nombre} ({mensaje_guardado.email})\n\nMensaje:\n{mensaje_guardado.mensaje}"
+            
+            try:
+                send_mail(
+                    subject=asunto_correo,
+                    message=cuerpo_correo,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                    fail_silently=False,
+                )
+                messages.success(request, "¡Mensaje enviado! Lo revisaré pronto.")
+                return redirect('contacto')
+            except Exception as e:
+                # Si el correo falla, igual quedó guardado en la base de datos
+                messages.error(request, "El mensaje se guardó, pero hubo un problema enviando la notificación.")
+                
+        else:
+            # Si el bot cayó en la trampa (el campo website tiene texto)
+            if 'website' in form.errors:
+                # Le hacemos creer al bot que tuvo éxito para que no intente saltar la barrera
+                messages.success(request, "¡Mensaje enviado! Lo revisaré pronto.")
+                return redirect('contacto')
+            else:
+                messages.error(request, "Revisa los campos del formulario, hay un error.")
     else:
         form = ContactoForm()
 
-    context = {
-        'form': form,
-    }
-    return render(request, 'core/contacto.html', context)
+    return render(request, 'contacto.html', {'form': form})
 
 def detalle_proyecto(request, slug):
     proyecto = get_object_or_404(Proyecto, slug=slug)
