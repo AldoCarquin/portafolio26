@@ -1,9 +1,7 @@
-from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Proyecto, Experiencia, DocumentoCV, CVDev, CVUXUI, Formacion, Habilidad, Certificacion
 from .forms import ContactoForm
-from django.conf import settings
 
 def home(request):
     proyectos = Proyecto.objects.all()
@@ -70,27 +68,9 @@ def contacto(request):
             return redirect('contacto')
 
         if form.is_valid():
-            # 1. Guardamos el mensaje en la base de datos (Garantía total de respaldo)
-            mensaje_guardado = form.save()
-            
-            asunto_correo = f"Nuevo contacto: {mensaje_guardado.asunto}"
-            cuerpo_correo = f"De: {mensaje_guardado.nombre} ({mensaje_guardado.email})\n\nMensaje:\n{mensaje_guardado.mensaje}"
-            
-            try:
-                # 2. Intentamos enviar el correo con fail_silently=True para que no rompa el worker si Render bloquea el puerto
-                send_mail(
-                    subject=asunto_correo,
-                    message=cuerpo_correo,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=['aldo.gonzalez.carquin@gmail.com'],
-                    fail_silently=True, 
-                )
-            except Exception as e:
-                print(f"Advertencia SMTP: {e}")
-
-            # 3. Independientemente de si el servidor SMTP de Google respondió al instante o hubo bloqueo, 
-            # el mensaje ya está seguro en la BD y el usuario ve su éxito sin sufrir timeouts de 500.
-            messages.success(request, "¡Mensaje enviado con éxito! Lo revisaré pronto.")
+            # Guardamos el mensaje en la base de datos de manera limpia y segura
+            form.save()
+            messages.success(request, "¡Mensaje enviado con éxito! Quedó registrado en el sistema.")
             return redirect('contacto')
         else:
             messages.error(request, "Revisa los campos del formulario, hay un error.")
