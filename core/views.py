@@ -77,15 +77,18 @@ def contacto(request):
                 send_mail(
                     subject=asunto_correo,
                     message=cuerpo_correo,
-                    from_email=settings.DEFAULT_FROM_EMAIL, # Sigue saliendo desde tu cuenta cartero
-                    recipient_list=['aldo.gonzalez.carquin@gmail.com'], # ¡Aquí llega directo a ti!
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=['aldo.gonzalez.carquin@gmail.com'],
                     fail_silently=False,
                 )
                 messages.success(request, "¡Mensaje enviado! Lo revisaré pronto.")
                 return redirect('contacto')
             except Exception as e:
-                # Si el correo falla, igual quedó guardado en la base de datos
-                messages.error(request, "El mensaje se guardó, pero hubo un problema enviando la notificación.")
+                # ¡Esto imprimirá la causa exacta en los logs de Render!
+                print(f"ERROR ENVIANDO CORREO: {e}")
+                messages.error(request, f"Error interno: {e}")
+                return redirect('contacto') # Evita que rompa con 500 y recargue la página mostrando el mensaje
+
                 
         else:
             # Si el bot cayó en la trampa (el campo website tiene texto)
