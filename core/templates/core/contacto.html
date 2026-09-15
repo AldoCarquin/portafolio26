@@ -21,7 +21,15 @@
 
     <form method="post" class="django-form">
       {% csrf_token %}
+      
+      <!-- Campos visibles del formulario -->
       {{ form.as_p }}
+
+      <!-- Campo trampa (Honeypot) oculto por seguridad para que los bots caigan -->
+      <div style="display:none;" aria-hidden="true">
+        {{ form.website }}
+      </div>
+
       <button type="submit" class="btn btn-primary">Enviar mensaje</button>
     </form>
   </section>

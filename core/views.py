@@ -31,7 +31,6 @@ def home(request):
 def agrupar_habilidades():
     todas = Habilidad.objects.all().order_by('orden')
     grupos = []
-    # Accede directamente a las opciones del campo 'categoria'
     opciones = Habilidad._meta.get_field('categoria').choices
     
     for valor, etiqueta in opciones:
@@ -42,8 +41,8 @@ def agrupar_habilidades():
 
 def curriculum(request):
     ultimo_cv = DocumentoCV.objects.first()
-    ultimo_cv_dev = CVDev.objects.first()      # Consulta directa a CVDev
-    ultimo_cv_uxui = CVUXUI.objects.first()    # Consulta directa a CVUXUI
+    ultimo_cv_dev = CVDev.objects.first()
+    ultimo_cv_uxui = CVUXUI.objects.first()
     
     experiencias = Experiencia.objects.all()
     formaciones = Formacion.objects.all()
@@ -65,11 +64,14 @@ def contacto(request):
     if request.method == 'POST':
         form = ContactoForm(request.POST)
         
+        # Evaluamos primero si cayó en la trampa del bot (honeypot)
+        if form.data.get('website'):
+            messages.success(request, "¡Mensaje enviado! Lo revisaré pronto.")
+            return redirect('contacto')
+
         if form.is_valid():
-            # 1. Guardamos el mensaje en la base de datos de Django
             mensaje_guardado = form.save()
             
-            # 2. Preparamos y enviamos el correo a tu bandeja personal
             asunto_correo = f"Nuevo contacto: {mensaje_guardado.asunto}"
             cuerpo_correo = f"De: {mensaje_guardado.nombre} ({mensaje_guardado.email})\n\nMensaje:\n{mensaje_guardado.mensaje}"
             
@@ -84,20 +86,11 @@ def contacto(request):
                 messages.success(request, "¡Mensaje enviado! Lo revisaré pronto.")
                 return redirect('contacto')
             except Exception as e:
-                # ¡Esto imprimirá la causa exacta en los logs de Render!
                 print(f"ERROR ENVIANDO CORREO: {e}")
-                messages.error(request, f"Error interno: {e}")
-                return redirect('contacto') # Evita que rompa con 500 y recargue la página mostrando el mensaje
-
-                
-        else:
-            # Si el bot cayó en la trampa (el campo website tiene texto)
-            if 'website' in form.errors:
-                # Le hacemos creer al bot que tuvo éxito para que no intente saltar la barrera
-                messages.success(request, "¡Mensaje enviado! Lo revisaré pronto.")
+                messages.error(request, "El mensaje se guardó, pero hubo un problema enviando la notificación.")
                 return redirect('contacto')
-            else:
-                messages.error(request, "Revisa los campos del formulario, hay un error.")
+        else:
+            messages.error(request, "Revisa los campos del formulario, hay un error.")
     else:
         form = ContactoForm()
 
