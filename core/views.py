@@ -69,7 +69,7 @@ def contacto(request):
             # 1. Guardamos el mensaje en la base de datos de Django
             mensaje_guardado = form.save()
             
-            # 2. Preparamos y enviamos el correo a ti mismo
+            # 2. Preparamos y enviamos el correo a tu bandeja personal
             asunto_correo = f"Nuevo contacto: {mensaje_guardado.asunto}"
             cuerpo_correo = f"De: {mensaje_guardado.nombre} ({mensaje_guardado.email})\n\nMensaje:\n{mensaje_guardado.mensaje}"
             
@@ -77,8 +77,8 @@ def contacto(request):
                 send_mail(
                     subject=asunto_correo,
                     message=cuerpo_correo,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                    from_email=settings.DEFAULT_FROM_EMAIL, # Sigue saliendo desde tu cuenta cartero
+                    recipient_list=['aldo.gonzalez.carquin@gmail.com'], # ¡Aquí llega directo a ti!
                     fail_silently=False,
                 )
                 messages.success(request, "¡Mensaje enviado! Lo revisaré pronto.")
