@@ -594,7 +594,11 @@
 
   .pop-in{opacity:0; transform:scale(.7) rotate(var(--r,0deg)); animation:popin .5s cubic-bezier(.2,1.4,.4,1) forwards;}
   @keyframes popin{to{opacity:1; transform:scale(1) rotate(var(--r,0deg));}}
-
+@media (max-width:620px){
+.hero h1 .l2 {
+    font-size: 24px;
+}
+}
 
   /* ======
    Honeypot
