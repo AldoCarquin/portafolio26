@@ -6,8 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}Aldo Carquín — Lógica en alta frecuencia{% endblock %}</title>
 
+<meta name="description" content="Portafolio de Aldo Carquín. Creador integral de productos digitales: desde el diseño UX/UI hasta el desarrollo Full-Stack y la arquitectura del servidor." />
+<meta property="og:type" content="website">
+
 <!-- Favicon del proyecto -->
 <link rel="icon" type="image/png" href="{% static 'core/img/favicon.png' %}">
+
+<link rel="canonical" href="https://aldoaldoaldo.com{{ request.path }}" />
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,8 +26,41 @@
 <meta property="og:title" content="Aldo Carquín — Lógica en alta frecuencia">
 <meta property="og:description" content="Portafolio oficial. Construyendo soluciones integrales: desde el diseño visual hasta la arquitectura del servidor.">
 
+<!-- Open Graph Complementos -->
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Preview del portafolio web de Aldo Carquín" />
+<meta property="og:site_name" content="Aldo Carquín" />
+<meta property="og:locale" content="es_CL" />
+
 <!-- ATENCIÓN: La imagen debe tener la URL completa (absoluta) -->
 <meta property="og:image" content="https://aldoaldoaldo.com{% static 'media/preview-social.png' %}">
+
+<!-- Twitter Cards (Obliga a X/Twitter a mostrar la imagen grande) -->
+<meta name="twitter:card" content="summary_large_image" />
+<!-- <meta name="twitter:site" content="@tu_usuario" /> Descomenta y pon tu usuario si usas Twitter -->
+
+<!-- Color de la barra del navegador en móviles (Cambia el #000000 por tu color base) -->
+<meta name="theme-color" content="#1D5FFF" />
+
+<!-- Iconos avanzados (Para iOS y navegadores modernos) -->
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'media/apple-touch-icon.png' %}" />
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'media/favicon-32x32.png' %}" />
+<link rel="icon" type="image/svg+xml" href="{% static 'media/favicon.svg' %}" />
+
+<!-- Web App Manifest (Para que los usuarios puedan "Instalar" tu web en su celular) -->
+<link rel="manifest" href="{% static 'media/manifest.json' %}" />
+
+<!-- Datos Estructurados JSON-LD (Magia pura para Google) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aldo Carquín",
+  "url": "https://aldoaldoaldo.com",
+  "jobTitle": "Desarrollador y Diseñador Web",
+  "description": "Creador integral de productos digitales: desde el diseño UX/UI hasta el desarrollo Full-Stack."
+}
 
 {% block extra_style %}{% endblock %}
 </head>
