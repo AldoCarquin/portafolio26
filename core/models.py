@@ -39,7 +39,7 @@ class Experiencia(models.Model):
     orden = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ['-fecha_inicio', 'orden']
+        ordering = ['orden', '-fecha_inicio']
 
     def __str__(self):
         return f"{self.puesto} en {self.empresa}"

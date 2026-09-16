@@ -30,7 +30,7 @@ class ProyectoAdmin(admin.ModelAdmin):
 @admin.register(Experiencia)
 class ExperienciaAdmin(admin.ModelAdmin):
     list_display = ('puesto', 'empresa', 'fecha_inicio', 'fecha_fin', 'orden')
-    ordering = ('-fecha_inicio', 'orden')
+    ordering = ('orden', '-fecha_inicio')
 
 @admin.register(DocumentoCV)
 class DocumentoCVAdmin(admin.ModelAdmin):
